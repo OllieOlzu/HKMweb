@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Hong Kong Mahjong</title>
+  </head>
+  <body style="margin:0; background:black; overflow:hidden; display:flex; justify-content:center; align-items:center; height:100vh;">
+
+  <canvas id="unity-canvas" tabindex="-1"></canvas>
+
+  <script src="Build/HKM6.loader.js"></script>
+  <script>
+    const canvas = document.getElementById("unity-canvas");
+
+    function resizeCanvas() {
+      const aspect = 16 / 9;
+      const windowAspect = window.innerWidth / window.innerHeight;
+
+      let width, height;
+
+      if (windowAspect > aspect) {
+        // Window is wider than game → match height
+        height = window.innerHeight;
+        width = height * aspect;
+      } else {
+        // Window is taller than game → match width
+        width = window.innerWidth;
+        height = width / aspect;
+      }
+
+      canvas.style.width = width + "px";
+      canvas.style.height = height + "px";
+    }
+
+    window.addEventListener("resize", resizeCanvas);
+    resizeCanvas();
+
+    createUnityInstance(canvas, {
+      dataUrl: "Build/HKM6.data",
+      frameworkUrl: "Build/HKM6.framework.js",
+      codeUrl: "Build/HKM6.wasm",
+      streamingAssetsUrl: "StreamingAssets",
+      companyName: "DefaultCompany",
+      productName: "Hong Kong Mahjong",
+      productVersion: "0.1.0",
+    });
+  </script>
+</body>
+</html>
